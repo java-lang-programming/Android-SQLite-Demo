@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS dau (id integer,dau_date text,opening_price text,high_price text,low_price text,closing_price text,change_price text,deleted_at text,created_at text,updated_at text);
