@@ -1,10 +1,10 @@
 /**
  * Copyright (C) 2016 Programming Java Android Development Project
- * Programming Java is 
+ * Programming Java is
  *
  *      http://java-lang-programming.com/
  *
- * Model Generator version : 1.0.2
+ * Model Generator version : 1.0.4
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,9 @@ public class DauHelper {
 
     /**
      * return Dau List
+     *
      * @param context you should use ApplicationContext. ApplicationContext can get getApplicationContext().
+     * @return the list objects of rows, null otherwise.
      */
     public static List<Dau> getDauList(final Context context) {
         List<Dau> list = new ArrayList<Dau>();
@@ -63,7 +65,7 @@ public class DauHelper {
             sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL[7] + ",");
             sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL[8] + ",");
             sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL[9]);
-            sql.append("from ");
+            sql.append(" from ");
             sql.append(" " + Dau.TABLE_NAME + " " + Dau.TABLE_NAME_OMISSION);
 
             if (BuildConfig.DEBUG) {
@@ -107,8 +109,10 @@ public class DauHelper {
 
     /**
      * return Dau
+     *
      * @param context you should use ApplicationContext. ApplicationContext can get getApplicationContext().
      * @param id Dau's id
+     * @return the object of rows affected if id is passed in, null otherwise.
      */
     public static Dau getDau(final Context context, final String id) {
         Dau dau = null;
@@ -129,7 +133,7 @@ public class DauHelper {
             sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL[7] + ",");
             sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL[8] + ",");
             sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL[9]);
-            sql.append("from ");
+            sql.append(" from ");
             sql.append(" " + Dau.TABLE_NAME + " " + Dau.TABLE_NAME_OMISSION);
             sql.append(" where " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL[0] + "=\"" +  id + "\"");
             if (BuildConfig.DEBUG) {
@@ -172,14 +176,46 @@ public class DauHelper {
 
     /**
      * update
+     *
      * @param context you should use ApplicationContext. ApplicationContext can get getApplicationContext().
      * @param contentValues
      * @param id is primary key
+     * @return the number of rows affected
      */
-    public static void update(final Context context, final ContentValues contentValues, String id) {
+    public static long update(final Context context, final ContentValues contentValues, String id) {
         DBHelper dBHelper = new DBHelper(context);
-        int result = dBHelper.db.update(Dau.TABLE_NAME, contentValues, Dau.COL[0] + "=" + id, null);
+        long result = dBHelper.db.update(Dau.TABLE_NAME, contentValues, Dau.COL[0] + "=" + id, null);
         dBHelper.cleanup();
+        return result;
     }
 
+    /**
+     * insert
+     *
+     * @param context you should use ApplicationContext. ApplicationContext can get getApplicationContext().
+     * @param contentValues
+     * @return the row ID of the newly inserted row, or -1 if an error occurred
+     */
+    public static long insert(final Context context, final ContentValues contentValues) {
+        DBHelper dBHelper = new DBHelper(context);
+        long result = dBHelper.db.insert(Dau.TABLE_NAME, null, contentValues);
+        dBHelper.cleanup();
+        return result;
+    }
+
+    /**
+     * delete
+     *
+     * @param context you should use ApplicationContext. ApplicationContext can get getApplicationContext().
+     * @param id is primary key
+     * @return the number of rows affected if a whereClause is passed in, 0
+     *         otherwise. To remove all rows and get a count pass "1" as the
+     *         whereClause.
+     */
+    public static long delete(final Context context, String id) {
+        DBHelper dBHelper = new DBHelper(context);
+        int result = dBHelper.db.delete(Dau.TABLE_NAME, Dau.COL[0] + "=" + id, null);
+        dBHelper.cleanup();
+        return result;
+    }
 }

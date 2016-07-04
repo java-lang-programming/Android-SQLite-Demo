@@ -1,5 +1,6 @@
 package com.java_lang_programming.android_sqlite_demo;
 
+import android.content.ContentValues;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -15,7 +16,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.java_lang_programming.android_sqlite_demo.model.Dau;
+import com.java_lang_programming.android_sqlite_demo.model.DauHelper;
 import com.java_lang_programming.android_sqlite_demo.util.DBHelper;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -83,6 +88,10 @@ public class MainActivity extends AppCompatActivity
                 /*Intent recyclerViewIntent = new Intent(MainActivity.this,
                         RecyclerViewActivity.class);
                 startActivity(recyclerViewIntent);*/
+                Dau dau = DauHelper.getDau(getApplicationContext(), "1");
+                Log.d(TAG, dau.toString());
+                List<Dau> list = DauHelper.getDauList(getApplicationContext());
+                Log.d(TAG, " list result : " + list.size());
             }
         });
 
@@ -90,9 +99,15 @@ public class MainActivity extends AppCompatActivity
         insertBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent recyclerViewIntent = new Intent(MainActivity.this,
-                        RecyclerViewActivity.class);
-                startActivity(recyclerViewIntent);*/
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(Dau.COL[0] ,"2");
+                contentValues.put(Dau.COL[1], "20160601");
+                contentValues.put(Dau.COL[2], "7000");
+                contentValues.put(Dau.COL[3], "7200");
+                contentValues.put(Dau.COL[8], System.currentTimeMillis());
+                contentValues.put(Dau.COL[9], System.currentTimeMillis());
+                long result = DauHelper.insert(getApplicationContext(), contentValues);
+                Log.d(TAG, " insert result : " + result);
             }
         });
 
@@ -100,6 +115,16 @@ public class MainActivity extends AppCompatActivity
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(Dau.COL[0] ,"2");
+                contentValues.put(Dau.COL[1], "20160601");
+                contentValues.put(Dau.COL[2], "7300");
+                contentValues.put(Dau.COL[3], "8000");
+                contentValues.put(Dau.COL[9], System.currentTimeMillis());
+                long result = DauHelper.update(getApplicationContext(), contentValues, "1");
+                Log.d(TAG, " update result : " + result);
+
+
                 /*Intent recyclerViewIntent = new Intent(MainActivity.this,
                         RecyclerViewActivity.class);
                 startActivity(recyclerViewIntent);*/
@@ -110,6 +135,8 @@ public class MainActivity extends AppCompatActivity
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                long result = DauHelper.delete(getApplicationContext(), "2");
+                Log.d(TAG, " delete result : " + result);
                 /*Intent recyclerViewIntent = new Intent(MainActivity.this,
                         RecyclerViewActivity.class);
                 startActivity(recyclerViewIntent);*/

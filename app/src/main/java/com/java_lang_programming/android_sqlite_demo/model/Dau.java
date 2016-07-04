@@ -4,7 +4,7 @@
  *
  *      http://java-lang-programming.com/
  *
- * Model Generator version : 1.0.2
+ * Model Generator version : 1.0.4
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,8 @@
  */
 
 package com.java_lang_programming.android_sqlite_demo.model;
+
+import android.text.TextUtils;
 
 /**
  * An Model class for Dau
@@ -54,4 +56,42 @@ public class Dau {
     public String created_at;
     // updated_at
     public String updated_at;
+
+    @Override
+    public String toString() {
+        StringBuffer str = new StringBuffer();
+        str.append("Dau [");
+        if (!TextUtils.isEmpty(id)) {
+            str.append(" id=" + id);
+        }
+        if (!TextUtils.isEmpty(dau_date)) {
+            str.append(", dau_date=" + dau_date);
+        }
+        if (!TextUtils.isEmpty(opening_price)) {
+            str.append(", opening_price=" + opening_price);
+        }
+        if (!TextUtils.isEmpty(high_price)) {
+            str.append(", high_price=" + high_price);
+        }
+        if (!TextUtils.isEmpty(low_price)) {
+            str.append(", low_price=" + low_price);
+        }
+        if (!TextUtils.isEmpty(closing_price)) {
+            str.append(", closing_price=" + closing_price);
+        }
+        if (!TextUtils.isEmpty(change_price)) {
+            str.append(", change_price=" + change_price);
+        }
+        if (!TextUtils.isEmpty(deleted_at)) {
+            str.append(", deleted_at=" + deleted_at);
+        }
+        if (!TextUtils.isEmpty(created_at)) {
+            str.append(", created_at=" + created_at);
+        }
+        if (!TextUtils.isEmpty(updated_at)) {
+            str.append(", updated_at=" + updated_at);
+        }
+        str.append("]");
+        return str.toString();
+    }
 }
