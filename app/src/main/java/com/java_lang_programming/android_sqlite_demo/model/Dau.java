@@ -4,7 +4,7 @@
  *
  *      http://java-lang-programming.com/
  *
- * Model Generator version : 1.0.4
+ * Model Generator version : 1.3.1
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,23 +21,45 @@
 
 package com.java_lang_programming.android_sqlite_demo.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.TextUtils;
+
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * An Model class for Dau
  */
-public class Dau {
+public class Dau implements Parcelable {
 
     public static final String TAG = "Dau";
     // table name
-    public static final String TABLE_NAME = "Dau";
+    public static final String TABLE_NAME = "dau";
     // table name aliases
-    public static final String TABLE_NAME_OMISSION = "D";
-    // カラム配列
-    public static final String [] COL = new String [] {"id","dau_date","opening_price","high_price","low_price","closing_price","change_price","deleted_at","created_at","updated_at"};
+    public static final String TABLE_NAME_OMISSION = "d";
+    // column list constant
+    public static final List<String> COL = Collections
+            .unmodifiableList(new LinkedList<String>() {
+                {
+                    add("id");
+                    add("dau_date");
+                    add("opening_price");
+                    add("high_price");
+                    add("low_price");
+                    add("closing_price");
+                    add("change_price");
+                    add("deleted_at");
+                    add("created_at");
+                    add("updated_at");
+
+                }
+            });
+
 
     // id
-    public String id;
+    public int id;
     // dau_date
     public String dau_date;
     // opening_price
@@ -57,13 +79,54 @@ public class Dau {
     // updated_at
     public String updated_at;
 
+    public Dau() {}
+    public static final Parcelable.Creator<Dau> CREATOR
+            = new Parcelable.Creator<Dau>() {
+        public Dau createFromParcel(Parcel in) {
+            return new Dau(in);
+        }
+
+        public Dau[] newArray(int size) {
+            return new Dau[size];
+        }
+    };
+
+    private Dau(Parcel in) {
+        id = in.readInt();
+        dau_date = in.readString();
+        opening_price = in.readString();
+        high_price = in.readString();
+        low_price = in.readString();
+        closing_price = in.readString();
+        change_price = in.readString();
+        deleted_at = in.readString();
+        created_at = in.readString();
+        updated_at = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeInt(id);
+        out.writeString(dau_date);
+        out.writeString(opening_price);
+        out.writeString(high_price);
+        out.writeString(low_price);
+        out.writeString(closing_price);
+        out.writeString(change_price);
+        out.writeString(deleted_at);
+        out.writeString(created_at);
+        out.writeString(updated_at);
+    }
+
     @Override
     public String toString() {
         StringBuffer str = new StringBuffer();
         str.append("Dau [");
-        if (!TextUtils.isEmpty(id)) {
-            str.append(" id=" + id);
-        }
+        str.append(" id=" + id);
         if (!TextUtils.isEmpty(dau_date)) {
             str.append(", dau_date=" + dau_date);
         }
@@ -82,15 +145,9 @@ public class Dau {
         if (!TextUtils.isEmpty(change_price)) {
             str.append(", change_price=" + change_price);
         }
-        if (!TextUtils.isEmpty(deleted_at)) {
-            str.append(", deleted_at=" + deleted_at);
-        }
-        if (!TextUtils.isEmpty(created_at)) {
-            str.append(", created_at=" + created_at);
-        }
-        if (!TextUtils.isEmpty(updated_at)) {
-            str.append(", updated_at=" + updated_at);
-        }
+        str.append(", deleted_at=" + deleted_at);
+        str.append(", created_at=" + created_at);
+        str.append(", updated_at=" + updated_at);
         str.append("]");
         return str.toString();
     }

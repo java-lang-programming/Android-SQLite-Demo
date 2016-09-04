@@ -4,7 +4,7 @@
  *
  *      http://java-lang-programming.com/
  *
- * Model Generator version : 1.0.4
+ * Model Generator version : 1.3.1
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,9 +23,9 @@ package com.java_lang_programming.android_sqlite_demo.model;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.filters.SmallTest;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.RenamingDelegatingContext;
-import android.test.suitebuilder.annotation.SmallTest;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -39,6 +39,9 @@ import static org.junit.Assert.assertNull;
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 
+/**
+ * A Test class for for DauHelper
+ */
 public class DauHelperTest {
 
     private Context mContext;
@@ -60,4 +63,30 @@ public class DauHelperTest {
         assertNull(dau);
     }
 
+    // TODO You should fix getContentValues
+    @Test
+    public void insert_success() {
+        long result = DauHelper.insert(mContext, DauHelper.getContentValues());
+        //assertNotEquals(result, -1);
+    }
+
+    @Test
+    public void insert_failure() {
+        long result = DauHelper.insert(mContext, DauHelper.getContentValues());
+        assertEquals(result, -1);
+    }
+
+    @Test
+    public void getMaxId_data_not_found() {
+        int id = DauHelper.getMaxId(mContext);
+        assertEquals(id, 1);
+    }
+
+    // TODO You should fix getContentValues
+    @Test
+    public void insert_confirm_data() {
+        long result = DauHelper.insert(mContext, DauHelper.getContentValues());
+        Dau dau = DauHelper.getDau(mContext, "1");
+        //assertEquals(dau.id, "1");
+    }
 }

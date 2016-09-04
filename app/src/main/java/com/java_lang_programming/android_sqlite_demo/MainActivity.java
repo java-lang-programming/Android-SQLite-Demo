@@ -89,7 +89,9 @@ public class MainActivity extends AppCompatActivity
                         RecyclerViewActivity.class);
                 startActivity(recyclerViewIntent);*/
                 Dau dau = DauHelper.getDau(getApplicationContext(), "1");
-                Log.d(TAG, dau.toString());
+                if (dau != null) {
+                    Log.d(TAG, dau.toString());
+                }
                 List<Dau> list = DauHelper.getDauList(getApplicationContext());
                 Log.d(TAG, " list result : " + list.size());
             }
@@ -100,12 +102,12 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 ContentValues contentValues = new ContentValues();
-                contentValues.put(Dau.COL[0] ,"2");
-                contentValues.put(Dau.COL[1], "20160601");
-                contentValues.put(Dau.COL[2], "7000");
-                contentValues.put(Dau.COL[3], "7200");
-                contentValues.put(Dau.COL[8], System.currentTimeMillis());
-                contentValues.put(Dau.COL[9], System.currentTimeMillis());
+                contentValues.put(Dau.COL.get(0) ,"2");
+                contentValues.put(Dau.COL.get(1), "20160601");
+                contentValues.put(Dau.COL.get(2), "7000");
+                contentValues.put(Dau.COL.get(3), "7200");
+                contentValues.put(Dau.COL.get(4), System.currentTimeMillis());
+                contentValues.put(Dau.COL.get(5), System.currentTimeMillis());
                 long result = DauHelper.insert(getApplicationContext(), contentValues);
                 Log.d(TAG, " insert result : " + result);
             }
@@ -116,11 +118,11 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 ContentValues contentValues = new ContentValues();
-                contentValues.put(Dau.COL[0] ,"2");
-                contentValues.put(Dau.COL[1], "20160601");
-                contentValues.put(Dau.COL[2], "7300");
-                contentValues.put(Dau.COL[3], "8000");
-                contentValues.put(Dau.COL[9], System.currentTimeMillis());
+                contentValues.put(Dau.COL.get(0) ,"2");
+                contentValues.put(Dau.COL.get(1), "20160601");
+                contentValues.put(Dau.COL.get(2), "7300");
+                contentValues.put(Dau.COL.get(3), "8000");
+                contentValues.put(Dau.COL.get(9), System.currentTimeMillis());
                 long result = DauHelper.update(getApplicationContext(), contentValues, "1");
                 Log.d(TAG, " update result : " + result);
 

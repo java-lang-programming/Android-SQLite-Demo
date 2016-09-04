@@ -4,7 +4,7 @@
  *
  *      http://java-lang-programming.com/
  *
- * Model Generator version : 1.0.4
+ * Model Generator version : 1.3.1
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,16 +55,16 @@ public class DauHelper {
 
             StringBuffer sql = new StringBuffer();
             sql.append("select ");
-            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL[0] + ",");
-            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL[1] + ",");
-            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL[2] + ",");
-            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL[3] + ",");
-            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL[4] + ",");
-            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL[5] + ",");
-            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL[6] + ",");
-            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL[7] + ",");
-            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL[8] + ",");
-            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL[9]);
+            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL.get(0) + ",");
+            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL.get(1) + ",");
+            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL.get(2) + ",");
+            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL.get(3) + ",");
+            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL.get(4) + ",");
+            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL.get(5) + ",");
+            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL.get(6) + ",");
+            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL.get(7) + ",");
+            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL.get(8) + ",");
+            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL.get(9));
             sql.append(" from ");
             sql.append(" " + Dau.TABLE_NAME + " " + Dau.TABLE_NAME_OMISSION);
 
@@ -78,7 +78,7 @@ public class DauHelper {
 
             while (isResult) {
                 dau = new Dau();
-                dau.id = c.getString(0);
+                dau.id = c.getInt(0);
                 dau.dau_date = c.getString(1);
                 dau.opening_price = c.getString(2);
                 dau.high_price = c.getString(3);
@@ -123,19 +123,19 @@ public class DauHelper {
 
             StringBuffer sql = new StringBuffer();
             sql.append("select ");
-            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL[0] + ",");
-            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL[1] + ",");
-            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL[2] + ",");
-            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL[3] + ",");
-            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL[4] + ",");
-            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL[5] + ",");
-            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL[6] + ",");
-            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL[7] + ",");
-            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL[8] + ",");
-            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL[9]);
+            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL.get(0) + ",");
+            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL.get(1) + ",");
+            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL.get(2) + ",");
+            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL.get(3) + ",");
+            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL.get(4) + ",");
+            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL.get(5) + ",");
+            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL.get(6) + ",");
+            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL.get(7) + ",");
+            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL.get(8) + ",");
+            sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL.get(9));
             sql.append(" from ");
             sql.append(" " + Dau.TABLE_NAME + " " + Dau.TABLE_NAME_OMISSION);
-            sql.append(" where " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL[0] + "=\"" +  id + "\"");
+            sql.append(" where " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL.get(0) + "=\"" +  id + "\"");
             if (BuildConfig.DEBUG) {
                 Log.d(TAG, "sql" + sql.toString());
             }
@@ -146,7 +146,7 @@ public class DauHelper {
 
             if (isResult) {
                 dau = new Dau();
-                dau.id = c.getString(0);
+                dau.id = c.getInt(0);
                 dau.dau_date = c.getString(1);
                 dau.opening_price = c.getString(2);
                 dau.high_price = c.getString(3);
@@ -175,6 +175,51 @@ public class DauHelper {
     }
 
     /**
+     * Return max id + 1 if not 1
+     *
+     * @param context you should use ApplicationContext. ApplicationContext can get getApplicationContext().
+     * @return maxId of id
+     */
+    public static int getMaxId(final Context context) {
+        Cursor c = null;
+        DBHelper dbhelper = null;
+        int maxId = 0;
+        try {
+            String sql = "select coalesce(id, 0) from " + Dau.TABLE_NAME + " order by id desc limit 1 offset 0";
+            dbhelper = new DBHelper(context);
+            c = dbhelper.db.rawQuery(sql, null);
+            int numRows = c.getCount();
+            c.moveToFirst();
+            if (0 < numRows) {
+                maxId = c.getInt(0);
+                c.moveToNext();
+            }
+            maxId++;
+        } catch (Exception e) {
+            Log.v(TAG, TAG, e);
+        } finally {
+            if (c != null && !c.isClosed()) {
+                c.close();
+            }
+            if (dbhelper != null) {
+                dbhelper.cleanup();
+            }
+            return maxId;
+        }
+    }
+
+    /**
+     * Return ContentValues
+     *
+     * @return contentValues
+     */
+    public static ContentValues getContentValues() {
+        ContentValues contentValues = new ContentValues();
+        // TODO something
+        return contentValues;
+    }
+
+    /**
      * update
      *
      * @param context you should use ApplicationContext. ApplicationContext can get getApplicationContext().
@@ -184,7 +229,7 @@ public class DauHelper {
      */
     public static long update(final Context context, final ContentValues contentValues, String id) {
         DBHelper dBHelper = new DBHelper(context);
-        long result = dBHelper.db.update(Dau.TABLE_NAME, contentValues, Dau.COL[0] + "=" + id, null);
+        long result = dBHelper.db.update(Dau.TABLE_NAME, contentValues, Dau.COL.get(0) + "=" + id, null);
         dBHelper.cleanup();
         return result;
     }
@@ -214,7 +259,7 @@ public class DauHelper {
      */
     public static long delete(final Context context, String id) {
         DBHelper dBHelper = new DBHelper(context);
-        int result = dBHelper.db.delete(Dau.TABLE_NAME, Dau.COL[0] + "=" + id, null);
+        int result = dBHelper.db.delete(Dau.TABLE_NAME, Dau.COL.get(0) + "=" + id, null);
         dBHelper.cleanup();
         return result;
     }
