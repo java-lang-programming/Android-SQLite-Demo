@@ -1,15 +1,15 @@
 /**
  * Copyright (C) 2016 Programming Java Android Development Project
  * Programming Java is
- *
- *      http://java-lang-programming.com/
- *
+ * <p>
+ * http://java-lang-programming.com/
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,7 +26,7 @@ import android.os.Build;
 import java.io.File;
 
 /**
- * Created by msuzuki on 2016/06/24.
+ * DBHelper is a class that helps SQLite operation.
  */
 public class DBHelper {
     public static final String TAG = "DBHelper";
@@ -45,6 +45,24 @@ public class DBHelper {
         }
     }
 
+    public void beginTransaction() {
+        if (this.db != null) {
+            this.db.beginTransaction();
+        }
+    }
+
+    public void setTransactionSuccessful() {
+        if (this.db != null) {
+            this.db.setTransactionSuccessful();
+        }
+    }
+
+    public void endTransaction() {
+        if (this.db != null) {
+            this.db.endTransaction();
+        }
+    }
+
     public void cleanup() {
         if (this.db != null) {
             this.db.close();
@@ -53,7 +71,8 @@ public class DBHelper {
     }
 
     /**
-     * Databaseが削除できればtrue。できなければfalse
+     * True if Database can be deleted. False if not available
+     *
      * @param context
      * @return
      */
@@ -67,4 +86,5 @@ public class DBHelper {
         }
         return result;
     }
+
 }

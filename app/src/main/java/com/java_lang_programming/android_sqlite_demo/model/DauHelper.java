@@ -1,17 +1,17 @@
 /**
  * Copyright (C) 2016 Programming Java Android Development Project
  * Programming Java is
- *
- *      http://java-lang-programming.com/
- *
+ * <p>
+ * http://java-lang-programming.com/
+ * <p>
  * Model Generator version : 1.3.1
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,6 +32,8 @@ import com.java_lang_programming.android_sqlite_demo.util.DBHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.attr.id;
+
 /**
  * An ModelHelper class for DauHelper
  */
@@ -47,7 +49,7 @@ public class DauHelper {
      */
     public static List<Dau> getDauList(final Context context) {
         List<Dau> list = new ArrayList<Dau>();
-        Dau dau = null;
+        //Optional<Dau> dau = null;
         Cursor c = null;
         DBHelper dBHelper = null;
         try {
@@ -77,7 +79,7 @@ public class DauHelper {
             boolean isResult = c.moveToFirst();
 
             while (isResult) {
-                dau = new Dau();
+                Dau dau = new Dau();
                 dau.id = c.getInt(0);
                 dau.dau_date = c.getString(1);
                 dau.opening_price = c.getString(2);
@@ -111,7 +113,7 @@ public class DauHelper {
      * return Dau
      *
      * @param context you should use ApplicationContext. ApplicationContext can get getApplicationContext().
-     * @param id Dau's id
+     * @param id      Dau's id
      * @return the object of rows affected if id is passed in, null otherwise.
      */
     public static Dau getDau(final Context context, final String id) {
@@ -135,7 +137,7 @@ public class DauHelper {
             sql.append(" " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL.get(9));
             sql.append(" from ");
             sql.append(" " + Dau.TABLE_NAME + " " + Dau.TABLE_NAME_OMISSION);
-            sql.append(" where " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL.get(0) + "=\"" +  id + "\"");
+            sql.append(" where " + Dau.TABLE_NAME_OMISSION + "." + Dau.COL.get(0) + "=\"" + id + "\"");
             if (BuildConfig.DEBUG) {
                 Log.d(TAG, "sql" + sql.toString());
             }
@@ -222,9 +224,9 @@ public class DauHelper {
     /**
      * update
      *
-     * @param context you should use ApplicationContext. ApplicationContext can get getApplicationContext().
+     * @param context       you should use ApplicationContext. ApplicationContext can get getApplicationContext().
      * @param contentValues
-     * @param id is primary key
+     * @param id            is primary key
      * @return the number of rows affected
      */
     public static long update(final Context context, final ContentValues contentValues, String id) {
@@ -237,7 +239,7 @@ public class DauHelper {
     /**
      * insert
      *
-     * @param context you should use ApplicationContext. ApplicationContext can get getApplicationContext().
+     * @param context       you should use ApplicationContext. ApplicationContext can get getApplicationContext().
      * @param contentValues
      * @return the row ID of the newly inserted row, or -1 if an error occurred
      */
@@ -252,15 +254,46 @@ public class DauHelper {
      * delete
      *
      * @param context you should use ApplicationContext. ApplicationContext can get getApplicationContext().
-     * @param id is primary key
+     * @param id      is primary key
      * @return the number of rows affected if a whereClause is passed in, 0
-     *         otherwise. To remove all rows and get a count pass "1" as the
-     *         whereClause.
+     * otherwise. To remove all rows and get a count pass "1" as the
+     * whereClause.
      */
     public static long delete(final Context context, String id) {
         DBHelper dBHelper = new DBHelper(context);
         int result = dBHelper.db.delete(Dau.TABLE_NAME, Dau.COL.get(0) + "=" + id, null);
         dBHelper.cleanup();
+        return result;
+    }
+
+    /**
+     * execute transaction
+     *
+     * @param context
+     * @return
+     */
+    public static long executeTransaction(final Context context) {
+        long result = -1;
+        DBHelper dbhelper = new DBHelper(context);
+        try {
+            // start transaction
+            dbhelper.beginTransaction();
+            // insert
+            result = dbhelper.db.insert(Dau.TABLE_NAME, Dau.COL.get(0) + " = " + id, null);
+            // update
+            result = dbhelper.db.update(Dau.TABLE_NAME, new ContentValues(), Dau.COL.get(0) + " = " + id, null);
+            // insert
+            result = dbhelper.db.insert(Dau.TABLE_NAME, Dau.COL.get(0) + " = " + id, null);
+            // transaction Successful
+            dbhelper.setTransactionSuccessful();
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+            result = -1;
+        } finally {
+            // end transaction
+            dbhelper.endTransaction();
+            dbhelper.cleanup();
+        }
         return result;
     }
 }
