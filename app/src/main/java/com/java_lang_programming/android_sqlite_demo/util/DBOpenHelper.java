@@ -33,7 +33,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
- * Created by msuzuki on 2016/06/24.
+ * DBOpenHelper is a class that helps SQLite operation.
  */
 public class DBOpenHelper extends SQLiteOpenHelper {
     public Context m_context;
